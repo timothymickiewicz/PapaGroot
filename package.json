@@ -2,16 +2,26 @@
   "name": "papagroot",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.6",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "qs": "^6.9.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "3.4.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"react-scripts start\" \"node server.js\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
