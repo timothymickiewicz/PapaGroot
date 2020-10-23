@@ -11,34 +11,32 @@ module.exports = {
             'Cookie': ''
         }
     }).then(function (response) {
-        console.log(JSON.stringify(response.data));
         res.send(JSON.stringify(response.data));
     }).catch((err) => {
-        console.log("trying to login")
         console.log(err);
     });
   },
   domwlogin: function(req, res) {
+    const data = qs.stringify({
+        'username': 'timothy.mickiewicz@gmail.com',
+        'password': 'R@sca100',
+        'remember_me': 'true',
+        '_csrf': req.query.token
+    });
     axios.request
     ({
-        method: 'post',
+        method: 'POST',
         url: 'https://profile.callofduty.com/do_login?new_SiteId=cod',
         headers: { 
-            'Cookie': 'XSRF-TOKEN=Set by test scripts; new_SiteId=cod;'
+            'Cookie': `XSRF-TOKEN=` + req.query.token + `; new_SiteId=cod;`
         },
-        data : qs.stringify({
-            'username': 'timothy.mickiewicz@gmail.com',
-            'password': 'STS3andSTS4',
-            'remember_me': 'true',
-            '_csrf': 'Set by test scripts' 
-        })
+        data : data
     }).then(function (response, status, xhr) {
-        // console.log(response);
-        // console.log(JSON.stringify(response.data));
-        // res.send(response._csrf);
+        console.log(JSON.stringify(response.data));
+        res.send(JSON.stringify(response));
     }).catch((err) => {
-        console.log("trying to login")
-        console.log(err);
+        res.send('err');
+        console.log(JSON.stringify(err));
     });
   },
   getStats: function (req, res) {
