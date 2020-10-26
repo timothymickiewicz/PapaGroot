@@ -2,33 +2,23 @@ import React from 'react';
 import './App.css';
 import util from './util';
 
-let parseLoginToken = (str) => {
-  const token = str.split(' ');
-  const extractedToken = token[57]
-  .match(/(?:"[^"]*"|^[^"]*$)/)[0]
-  .replace(/"/g, "");
-  return extractedToken;
-}
-
 function App() {
-  const [csrfToken, setCsrfToken] = React.useState('');
+  const [data, setData] = React.useState({});
 
   React.useEffect(() => {
-    csrfToken === '' ? (
-      util.mwlogin()
-      .then((res1) => {
-        setCsrfToken(parseLoginToken(res1.data));
-      }).catch((err1) => {
-        console.log(err1);
-      })
-    ) : (
-      util.domwlogin({token: csrfToken})
-      .then((res) => {
-        console.log(res);
-      }).catch((err) => {
-        console.log(err);
-      })
-    )
+    JSON.stringify(data) === JSON.stringify({}) ? 
+      (
+        util.domwlogin()
+        .then((res) => {
+          setData(res.data);
+          console.log(res);
+        }).catch((err) => {
+          console.log(err);
+        })
+      ) :
+      (
+        console.log("Not Yet")
+      )
   })
 
   return (

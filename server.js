@@ -1,23 +1,28 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const path = require('path');
-const port = 5000 || 3001;
 const logger = require("morgan");
+const port = 5000 || 3001;
 const app = express();
 
-app.use(logger("dev"));
+const corsOptions = {
+    origin: 'http://localhost:5000',
+    optionsSuccessStatus: 200,
+    credentials: true
+};
 
+app.use(logger("dev"));
+app.use(cors(corsOptions));
 app.use(require('./routes'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(port, () => {
