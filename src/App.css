@@ -3,6 +3,7 @@
   height: 100vh;
   width: 100vw;
   overflow: scroll;
+  background: -webkit-linear-gradient(360deg,#030303 10%,#1f1f1f 360%); background: linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
 }
 
 .App-logo {
@@ -28,4 +29,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.row {
+  max-width: 100vw;
+  text-align: center;
+  height: auto;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
