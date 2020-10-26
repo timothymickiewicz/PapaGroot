@@ -1,5 +1,8 @@
+const dotenv = require ('dotenv');
 const axios = require('axios');
 const API = require('call-of-duty-api')({ platform: "battle" });
+
+dotenv.config();
 
 module.exports = {
   mwlogin: function (req, res) {
@@ -26,10 +29,11 @@ module.exports = {
   },
 
   domwlogin: function(req, res) {
-    API.login("timothy.mickiewicz@gmail.com", "R@sca100").then((response) => {
+      console.log(process.env.EMAIL);
+    API.login(process.env.EMAIL, process.env.PW).then((response) => {
         let data = {};
 
-        API.MWstats('Saggitysass#1907', API.platforms.battle).then((output) => {
+        API.MWstats(process.env.GT, API.platforms.battle).then((output) => {
             data = output;
             console.log(data);
             res.send(data);
